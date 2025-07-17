@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BarberShop Elite - Tu Barbería de Confianza</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #1a1a1a;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #d4af37;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #d4af37;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #d4af37;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(212,175,55,0.3)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23222" width="1200" height="800"/><rect fill="%23333" x="100" y="100" width="200" height="600"/><rect fill="%23444" x="400" y="200" width="300" height="400"/><rect fill="%23555" x="800" y="150" width="250" height="500"/></svg>');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #d4af37, #f4d03f);
+            color: #000;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212,175,55,0.3);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section:nth-child(even) {
+            background: #2a2a2a;
+        }
+
+        .section:nth-child(odd) {
+            background: #1a1a1a;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #d4af37;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            color: #fff;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: rgba(212,175,55,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(212,175,55,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: #ccc;
+        }
+
+        /* Appointment Section */
+        .appointment-form {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212,175,55,0.3);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 5px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 10px rgba(212,175,55,0.3);
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .time-slot {
+            padding: 0.5rem;
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #fff;
+        }
+
+        .time-slot:hover {
+            background: rgba(212,175,55,0.3);
+        }
+
+        .time-slot.selected {
+            background: #d4af37;
+            color: #000;
+        }
+
+        .time-slot.unavailable {
+            background: rgba(255,0,0,0.2);
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 300px;
+            background: linear-gradient(45deg, #333, #555);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: #fff;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* Comments Section */
+        .comments-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .comment-form {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .comment-item {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #d4af37;
+        }
+
+        .comment-author {
+            color: #d4af37;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-text {
+            color: #ccc;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-date {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .rating {
+            display: flex;
+            gap: 0.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .star {
+            color: #d4af37;
+            font-size: 1.2rem;
+        }
+
+        /* Payment Section */
+        .payment-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .payment-card {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(212,175,55,0.3);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .payment-card h3 {
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+
+        .payment-card ul {
+            list-style: none;
+            color: #ccc;
+        }
+
+        .payment-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: #d4af37;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">BarberShop Elite</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#citas">Citas</a></li>
+                <li><a href="#galeria">Galería</a></li>
+                <li><a href="#comentarios">Comentarios</a></li>
+                <li><a href="#pagos">Pagos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>BarberShop Elite</h1>
+            <p>Cortes de cabello profesionales con estilo clásico y moderno</p>
+            <a href="#citas" class="cta-button">Reservar Cita</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="nosotros" class="section">
+        <div class="container">
+            <h2>Sobre Nosotros</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>En BarberShop Elite, combinamos la tradición de la barbería clásica con técnicas modernas para ofrecerte la mejor experiencia. Nuestro equipo de barberos profesionales está comprometido con la excelencia y la satisfacción del cliente.</p>
+                    <p>Con más de 10 años de experiencia, hemos perfeccionado nuestro arte para brindarte cortes precisos, afeitados impecables y un servicio personalizado que supere tus expectativas.</p>
+                </div>
+                <div class="about-features">
+                    <div class="feature-card">
+                        <h3>Barberos Expertos</h3>
+                        <p>Profesionales certificados con años de experiencia</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Productos Premium</h3>
+                        <p>Utilizamos solo los mejores productos para el cuidado capilar</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Ambiente Exclusivo</h3>
+                        <p>Disfruta de un espacio cómodo y relajante</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Horarios Flexibles</h3>
+                        <p>Abierto 7 días a la semana para tu comodidad</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section id="citas" class="section">
+        <div class="container">
+            <h2>Reservar Cita</h2>
+            <form class="appointment-form" id="appointmentForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="servicio">Tipo de Servicio</label>
+                    <select id="servicio" name="servicio" required>
+                        <option value="">Selecciona un servicio</option>
+                        <option value="corte-clasico">Corte Clásico - $200</option>
+                        <option value="corte-moderno">Corte Moderno - $250</option>
+                        <option value="afeitado">Afeitado Tradicional - $150</option>
+                        <option value="corte-afeitado">Corte + Afeitado - $300</option>
+                        <option value="barba">Arreglo de Barba - $180</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" id="fecha" name="fecha" required>
+                </div>
+                <div class="form-group">
+                    <label>Horario Disponible</label>
+                    <div class="time-slots" id="timeSlots">
+                        <div class="time-slot" data-time="09:00">09:00</div>
+                        <div class="time-slot" data-time="10:00">10:00</div>
+                        <div class="time-slot" data-time="11:00">11:00</div>
+                        <div class="time-slot" data-time="12:00">12:00</div>
+                        <div class="time-slot" data-time="14:00">14:00</div>
+                        <div class="time-slot" data-time="15:00">15:00</div>
+                        <div class="time-slot" data-time="16:00">16:00</div>
+                        <div class="time-slot" data-time="17:00">17:00</div>
+                        <div class="time-slot unavailable" data-time="18:00">18:00</div>
+                        <div class="time-slot unavailable" data-time="19:00">19:00</div>
+                    </div>
+                </div>
+                <button type="submit" class="cta-button">Confirmar Cita</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="galeria" class="section">
+        <div class="container">
+            <h2>Galería de Cortes</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <div style="background: linear-gradient(45deg, #8B4513, #A0522D); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">Corte Clásico</div>
+                    <div class="gallery-overlay">
+                        <h3>Corte Clásico</h3>
+                        <p>Elegante y atemporal para el caballero moderno</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div style="background: linear-gradient(45deg, #2F4F4F, #708090); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">Fade Moderno</div>
+                    <div class="gallery-overlay">
+                        <h3>Fade Moderno</h3>
+                        <p>Degradado perfecto con acabado contemporáneo</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div style="background: linear-gradient(45deg, #556B2F, #6B8E23); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">Undercut</div>
+                    <div class="gallery-overlay">
+                        <h3>Undercut</h3>
+                        <p>Estilo audaz con contraste marcado</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div style="background: linear-gradient(45deg, #8B0000, #B22222); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">Pompadour</div>
+                    <div class="gallery-overlay">
+                        <h3>Pompadour</h3>
+                        <p>Clásico retro con toque moderno</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div style="background: linear-gradient(45deg, #4B0082, #6A5ACD); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">Texturizado</div>
+                    <div class="gallery-overlay">
+                        <h3>Texturizado</h3>
+                        <p>Movimiento natural con estilo relajado</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div style="background: linear-gradient(45deg, #B8860B, #DAA520); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">Afeitado</div>
+                    <div class="gallery-overlay">
+                        <h3>Afeitado Tradicional</h3>
+                        <p>Experiencia clásica con navaja y espuma caliente</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comments Section -->
+    <section id="comentarios" class="section">
+        <div class="container">
+            <h2>Comentarios de Clientes</h2>
+            <div class="comments-container">
+                <form class="comment-form" id="commentForm">
+                    <div class="form-group">
+                        <label for="commentName">Tu Nombre</label>
+                        <input type="text" id="commentName" name="commentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="commentText">Tu Comentario</label>
+                        <textarea id="commentText" name="commentText" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="rating">Calificación</label>
+                        <select id="rating" name="rating">
+                            <option value="5">⭐⭐⭐⭐⭐ Excelente</option>
+                            <option value="4">⭐⭐⭐⭐ Muy Bueno</option>
+                            <option value="3">⭐⭐⭐ Bueno</option>
+                            <option value="2">⭐⭐ Regular</option>
+                            <option value="1">⭐ Malo</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="cta-button">Enviar Comentario</button>
+                </form>
+                
+                <div id="commentsList">
+                    <div class="comment-item">
+                        <div class="comment-author">Carlos Rodríguez</div>
+                        <div class="comment-text">Excelente servicio, el barbero es muy profesional y el resultado fue perfecto. Definitivamente regresaré.</div>
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                        <div class="comment-date">15 de julio, 2025</div>
+                    </div>
+                    <div class="comment-item">
+                        <div class="comment-author">Miguel Hernández</div>
+                        <div class="comment-text">Ambiente muy agradable y corte impecable. Los precios son justos para la calidad del servicio.</div>
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                        <div class="comment-date">12 de julio, 2025</div>
+                    </div>
+                    <div class="comment-item">
+                        <div class="comment-author">Roberto Silva</div>
+                        <div class="comment-text">Me encantó el afeitado tradicional, una experiencia única. El barbero tiene mucha experiencia.</div>
+                        <div class="rating">⭐⭐⭐⭐</div>
+                        <div class="comment-date">10 de julio, 2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section id="pagos" class="section">
+        <div class="container">
+            <h2>Información de Pagos</h2>
+            <div class="payment-info">
+                <div class="payment-card">
+                    <h3>💳 Métodos de Pago</h3>
+                    <ul>
+                        <li>• Efectivo</li>
+                        <li>• Tarjetas de Crédito/Débito</li>
+                        <li>• Transferencias Bancarias</li>
+                        <li>• Paypal</li>
+                        <li>• Pago con aplicaciones móviles</li>
+                    </ul>
+                </div>
+                <div class="payment-card">
+                    <h3>💰 Precios</h3>
+                    <ul>
+                        <li>• Corte Clásico: $200</li>
+                        <li>• Corte Moderno: $250</li>
+                        <li>• Afeitado: $150</li>
+                        <li>• Corte + Afeitado: $300</li>
+                        <li>• Arreglo de Barba: $180</li>
+                    </ul>
+                </div>
+                <div class="payment-card">
+                    <h3>🎁 Promociones</h3>
+                    <ul>
+                        <li>• 10% desc. nuevos clientes</li>
+                        <li>• Paquete mensual: 20% desc.</li>
+                        <li>• Referir amigo: $50 desc.</li>
+                        <li>• Estudiantes: 15% desc.</li>
+                        <li>• Adultos mayores: 10% desc.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <p>📍 Calle Principal #123, Tonalá, Jalisco</p>
+                    <p>📞 (33) 1234-5678</p>
+                    <p>✉️ info@barbershopelite.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Horarios</h3>
+                    <p>Lunes - Viernes: 9:00 - 20:00</p>
+                    <p>Sábados: 8:00 - 18:00</p>
+                    <p>Domingos: 10:00 - 16:00</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Síguenos</h3>
+                    <p><a href="#">Facebook</a></p>
+                    <p><a href="#">Instagram</a></p>
+                    <p><a href="#">Twitter</a></p>
+                </div>
+            </div>
+            <p>&copy; 2025 BarberShop Elite. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Time slot selection
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.addEventListener('click', function() {
+                if (!this.classList.contains('unavailable')) {
+                    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                    this.classList.add('selected');
+                }
+            });
+        });
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('fecha').setAttribute('min', today);
+
+        // Appointment form submission
+        document.getElementById('
